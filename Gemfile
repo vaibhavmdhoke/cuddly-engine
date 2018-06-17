@@ -33,6 +33,10 @@ gem 'jbuilder', '~> 2.5'
 # postgres Db
 gem 'pg'
 
+# sunspot solr for full text search
+gem 'sunspot_rails'
+gem 'sunspot_solr' # optional pre-packaged Solr distribution for use in development. Please find a section below explaining other options for running Solr in production
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
