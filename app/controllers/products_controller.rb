@@ -2,19 +2,29 @@ class ProductsController < ApplicationController
 
 
   def index
+    # binding.pry
     @search = Product.search do      
       any_of do
-        # You can write more or can make it dynamic as per your requirement
-        # It is only for example that will help you in understanding that
-        # In that way you will see the whole data filtered as per the specified ranges
-        with(:pricing, 1..100)
-        with(:pricing, 101..200) 
-        with(:pricing, 201..300) 
-        with(:pricing, 301..400) 
-        with(:pricing, 401..500)  
+        product_params['price'].each {|range| with(:price, eval(range) )} if product_params['price'].present?
       end
+      with(:category_id, product_params['category_id']) if product_params['category_id'].present?
+      order_by(:price, product_params[:sort].to_sym) if product_params[:sort].present?
+      paginate :page => product_params['page'], :per_page => product_params['page_size']
     end
-    @search.results
+
+    @results = @search.results
+    # @results
+    # result = {search: @results, total_pages: @results.total_pages}
+    respond_to do |format|
+      format.html
+      format.json { render json: @results }
+    end
+  end
+
+  private
+
+  def product_params
+    params.require(:product).permit(:id, :category_id, :page, :page_size, :sort, price:[])
   end
   
 end

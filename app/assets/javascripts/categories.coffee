@@ -21,8 +21,10 @@ $(document).ready ->
 			description: ',',
 			products: [],
 			checkedPrice: [],
-			selectedFilter:''
-
+			sortingFilter:''
+			page: 1,
+			totalResults: '',
+			pageSize: 5
 		mounted: ->
 			console.log('<<<<<<<<<<<<<< M,ounted')
 
@@ -33,7 +35,7 @@ $(document).ready ->
 			$.ajax
 				url: "/products"
 				type: 'GET'
-				data: {product: {category_id: @id, price: @checkedPrice}}
+				data: {product: {category_id: @id, price: @checkedPrice, sort: @sortingFilter, page_size: @pageSize, page: @page}}
 				dataType: 'json'
 				contentType: 'application/json'
 				success: (response) ->
