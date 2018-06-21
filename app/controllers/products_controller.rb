@@ -8,16 +8,26 @@ class ProductsController < ApplicationController
         product_params['price'].each {|range| with(:price, eval(range) )} if product_params['price'].present?
       end
       with(:category_id, product_params['category_id']) if product_params['category_id'].present?
+      ## TODO: Do not sym, passed params
       order_by(:price, product_params[:sort].to_sym) if product_params[:sort].present?
       paginate :page => product_params['page'], :per_page => product_params['page_size']
     end
 
-    @results = @search.results
+    # @results = @search.results
     # @results
     # result = {search: @results, total_pages: @results.total_pages}
     respond_to do |format|
       format.html
-      format.json { render json: @results }
+      format.json { render json: @search.results }
+    end
+  end
+
+  def show
+    # binding.pry
+    @result = Product.find_by_id(params[:id])
+    respond_to do |format|
+      format.html
+      format.json { render json: @result }
     end
   end
 
