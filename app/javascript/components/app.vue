@@ -91,8 +91,20 @@ export default {
       pageSize: 5,
       pageName: 'index',
       selectedProduct: '',
-      categories:[{name: 'test>>>>', id: 4}, {name: 'test>>>>2', id: 7}]
+      categories:[]
     }
+  },
+  mounted: function () {
+    let t = this
+    $.ajax({
+      url: "/categories",
+      type: 'GET',
+      dataType: 'json',
+      contentType: 'application/json',
+      success: function(response) {
+        t.categories = response;
+      }
+    })
   },
   methods: {
     detectClick: function() {
