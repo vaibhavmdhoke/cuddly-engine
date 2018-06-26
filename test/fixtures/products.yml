@@ -1,13 +1,26 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
+prod_one:
+  name: Product1
   description: MyString
-  price: 1.5
+  price: 10 
   category: one
-
-two:
-  name: MyString
+  image_url: "https://picsum.photos/200/300/?random"
+prod_two:
+  name: Product2
   description: MyString
-  price: 1.5
+  price: 26
+  category: one
+  image_url: "https://picsum.photos/200/300/?random"
+prod_three:
+  name: Product3
+  description: MyString
+  price: 51
   category: two
+  image_url: "https://picsum.photos/200/300/?random"
+prod_four:
+  name: Product4
+  description: MyString
+  price: 101
+  category: two
+  image_url: "https://picsum.photos/200/300/?random"

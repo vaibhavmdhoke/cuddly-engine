@@ -55,6 +55,7 @@ group :development, :test do
   gem 'pry-rails'
   gem 'progress_bar'
   gem 'selenium-webdriver'
+  gem 'rspec'
 end
 
 group :development do
