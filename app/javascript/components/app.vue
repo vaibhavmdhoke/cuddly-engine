@@ -9,49 +9,44 @@
           </category-list>
             
         </li>
-
-      <p>{{ message }}<p>
+        </br>
+        <label> Price Filter</label>
+        </br>
           <div>
-            <input type="checkbox" name="price"  v-model="checkedPrice" value="0..25"> Under 25<br>
-            <input type="checkbox" name="price"  v-model="checkedPrice" value="25..50"> 25-50<br>
-            <input type="checkbox" name="price"  v-model="checkedPrice" value="50..100"> 50-100<br>
-            <input type="checkbox" name="price"  v-model="checkedPrice" value="100..150"> 100-150<br>
-            <input type="checkbox" name="price"  v-model="checkedPrice" value="150..200"> 150-200<br>
-            <input type="checkbox" name="price"  v-model="checkedPrice" value="250..300"> 250-300<br>
-            <input type="checkbox" name="price"  v-model="checkedPrice" value="300..100000"> Above 300<br>
+            <input type="checkbox" name="price" v-model="checkedPrice" value="0..25"> Under 25<br>
+            <input type="checkbox" name="price" v-model="checkedPrice" value="25..50"> 25-50<br>
+            <input type="checkbox" name="price" v-model="checkedPrice" value="50..100"> 50-100<br>
+            <input type="checkbox" name="price" v-model="checkedPrice" value="100..150"> 100-150<br>
+            <input type="checkbox" name="price" v-model="checkedPrice" value="150..200"> 150-200<br>
+            <input type="checkbox" name="price" v-model="checkedPrice" value="250..300"> 250-300<br>
+            <input type="checkbox" name="price" v-model="checkedPrice" value="300..100000"> Above 300<br>
           </div>
-          {{checkedPrice}}
     </div>
 
     <div id="content">
     
       <div v-if="pageName === 'index'">
         <span class="s">{{ name}}</span>
+
+        <label>Sort Order</label>
         <select v-model="sortingFilter">
           <option disabled value="1">Please select one</option>
           <option value="asc">Price: From Low To High </option>
           <option value="desc">Price: From High To Low</option>
         </select>
-        <span>Selected: {{ sortingFilter }}</span>
 
+
+        <label>Page Size</label>
         <select v-model="pageSize">
           <option disabled value="1">Please select one</option>
           <option> 5 </option>
           <option> 10 </option>
           <option> 15 </option>
         </select>
-        <span>Selected: {{ pageSize }}</span>
-
-        <div class="pagination">
-          <a href="#">&laquo;</a>
-          <a href="#">1</a>
-          <a class="active" href="#">2</a>
-          <a href="#">3</a>
-          <a href="#">4</a>
-          <a href="#">5</a>
-          <a href="#">6</a>
-          <a href="#">&raquo;</a>
-        </div>
+        <a v-on:click="paginate" href="javascript:void(0);" data-paginate="backward">&laquo;</a>
+         Current Page {{page}}
+        <a v-on:click="paginate" href="javascript:void(0);" data-paginate="forward">&raquo;</a>
+        <button v-on:click="applyFilter" > Apply </button>
 
         <div class='grid-container'>
           <products-list v-bind:product = "product"
@@ -79,9 +74,8 @@
 export default {
   data: function () {
     return {
-      message: "Hello Vue!",
       pageName: 'index',
-      name: 'this',
+      name: '',
       id: '',
       products: [],
       checkedPrice: [],
@@ -107,33 +101,21 @@ export default {
     })
   },
   methods: {
-    detectClick: function() {
-      event.stopPropagation()
-      this.id = event.target.id
-
-      this.name = $(event.target).data('name')
-      this.pageName = 'index'
-      let t = this
-        
-        
-        $.ajax({
-          url: "/products",
-          type: 'GET',
-          data: {
-            product: {
-              category_id: this.id,
-              price: this.checkedPrice,
-              sort: this.sortingFilter,
-              page_size: this.pageSize,
-              page: this.page
-            }
-          },
-          dataType: 'json',
-          contentType: 'application/json',
-          success: function(response) {
-            t.products = response;
-          }
-        })
+    paginate: function() {
+      if($(event.target).data('paginate') == 'forward'){
+        if(this.products.length != 0){
+          this.page = this.page + 1
+          $(".s").find('#'+this.id).click()
+        }
+      }else{
+        if(this.page > 1){
+          this.page = this.page - 1
+          $(".s").find('#'+this.id).click()
+        }
+      }
+    },
+    applyFilter: function(){
+      $(".s").find('#'+this.id).click()
     }
   }
 }
