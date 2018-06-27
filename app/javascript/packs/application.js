@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
   const app = Vue.component('products-list', {
     props: ['product'],
-    template: "<div class='grid-item' v-bind:data-key=\"product.id\">\n <img v-bind:src=\"product.image_url\" />\n  <a href=\"javascript:void(0);\" class=\"detailPage\" v-bind:data-key=\"product.id\"  v-on:click=\"detailPageClick\">{{ product.name}}  ${{ product.price}} </a></div>",
+    template: "<div class='grid-item' v-bind:data-key=\"product.id\">\n <img v-bind:src=\"product.image_url\" />\n  <a href=\"javascript:void(0);\" class=\"detailPage\" v-bind:data-key=\"product.id\"  v-on:click=\"detailPageClick\">{{ product.name}}     ${{ product.price}} </a></div>",
     methods: {
       detailPageClick: function() {
         var id;
