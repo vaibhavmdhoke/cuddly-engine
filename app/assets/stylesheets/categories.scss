@@ -41,15 +41,13 @@ body{
   display: grid;
   grid-template-columns: auto auto auto auto;
   grid-gap: 40px 80px;
-//   background-color: #2196F3;
   padding: 10px;
 }
 
 .grid-container > div {
-    // background-color: rgba(255, 255, 255, 0.8);
     text-align: center;
     padding: 5px 0;
-    font-size: 30px;
+    font-size: 18px;
 }
 
 .collapsible {
@@ -79,6 +77,11 @@ body{
 .pagination a.active {
     background-color: #4CAF50;
     color: white;
+}
+
+a.detailPage{
+    color: #f39;
+    text-decoration: none;
 }
 
 .pagination a:hover:not(.active) {background-color: #ddd;}

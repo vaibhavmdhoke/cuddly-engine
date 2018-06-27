@@ -59,10 +59,10 @@
 
       <div v-else>
           
-          <h1>Name: {{selectedProduct.name }}</h1>
-          <h1>Price: {{selectedProduct.price }}</h1>
-          <h1>Description: {{selectedProduct.description }}</h1>
+          <h1 class="s">Name: {{selectedProduct.name }}</h1>
+          <p class="s">Description: {{selectedProduct.description }}</p>
           <img v-bind:src=selectedProduct.image_url />
+          <h2 class="s">Price: $ {{selectedProduct.price }}</h2>
           
       </div>
     </div>
@@ -115,6 +115,7 @@ export default {
       }
     },
     applyFilter: function(){
+      this.page = 1
       $(".s").find('#'+this.id).click()
     }
   }

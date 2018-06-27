@@ -27,6 +27,7 @@ module V1
 
     private
 
+
     def product_params
       params.require(:product).permit(:id, :category_id, :page, :page_size, :sort, price:[])
     end
