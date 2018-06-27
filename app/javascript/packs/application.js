@@ -24,26 +24,27 @@ document.addEventListener('DOMContentLoaded', () => {
     methods: {
       detectClick: function() {
         event.stopPropagation()
-        window.app.$children[0].id = event.target.id
-        window.app.$children[0].name = $(event.target).data('name')
-        window.app.$children[0].pageName = 'index'
-        let t = this
+        let application = window.app.$children[0]
+        application.id = event.target.id
+        application.name = $(event.target).data('name')
+        application.pageName = 'index'
+        if (application.paginateStatus) {console.log('paginate')} else {application.page = 1}
         $.ajax({
           url: "/products",
           type: 'GET',
           data: {
             product: {
-              category_id: window.app.$children[0].id,
-              price: window.app.$children[0].checkedPrice,
-              sort: window.app.$children[0].sortingFilter,
-              page_size: window.app.$children[0].pageSize,
-              page: window.app.$children[0].page
+              category_id: application.id,
+              price: application.checkedPrice,
+              sort: application.sortingFilter,
+              page_size: application.pageSize,
+              page: application.page
             }
           },
           dataType: 'json',
           contentType: 'application/json',
           success: function(response) {
-            window.app.$children[0].products = response;
+            application.products = response;
           }
         })
       }
@@ -78,16 +79,15 @@ document.addEventListener('DOMContentLoaded', () => {
     methods: {
       detailPageClick: function() {
         var id;
-        id = $(event.target).data('key');
-        window.app.$children[0].pageName = 'show';
-        window.app.$children[0].description = "desctiotion >>> " + id;
+        id = $(event.target).data('key')
+        window.app.$children[0].pageName = 'show'
         $.ajax({
           url: "/products/" + id,
           type: 'GET',
           dataType: 'json',
           contentType: 'application/json',
           success: function(response) {
-            window.app.$children[0].selectedProduct = response;
+            window.app.$children[0].selectedProduct = response
           }
         });
       }
