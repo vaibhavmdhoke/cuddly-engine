@@ -85,7 +85,8 @@ export default {
       pageSize: 5,
       pageName: 'index',
       selectedProduct: '',
-      categories:[]
+      categories:[],
+      paginateStatus: false
     }
   },
   mounted: function () {
@@ -102,6 +103,7 @@ export default {
   },
   methods: {
     paginate: function() {
+      this.paginateStatus = true
       if($(event.target).data('paginate') == 'forward'){
         if(this.products.length != 0){
           this.page = this.page + 1
@@ -113,6 +115,7 @@ export default {
           $(".s").find('#'+this.id).click()
         }
       }
+      this.paginateStatus = false
     },
     applyFilter: function(){
       this.page = 1
